@@ -1,0 +1,108 @@
+<html>
+  <head>
+    <title>Simplest example of checkableRows behavior</title>
+    <link href="table.checkableRows.css" rel="stylesheet">
+    <style>
+      #example, #example input, #example td {
+        font-face: Verdana, Arial, sans-serif;
+        font-size: 10pt;
+      }
+      
+      #example a.seeAlso {
+        color: DarkBlue;
+        display: block;
+        font-weight: bold;
+        margin: 4px 0 4px 0;
+        text-decoration: none;        
+      }
+      
+      #controlBar {
+        margin: 8px 0 8px 0;
+      }
+
+      #exampleTable {
+        margin: 16px 0 16px 0;
+        border-collapse: collapse;
+      }
+
+      #exampleTable thead td {
+        background-color: Whitesmoke;
+      }
+
+      #exampleTable td {
+        border: 1px solid Gainsboro;
+        padding: 3px 5px 3px 5px;
+      }
+
+      #selectedSet {
+        margin: 8px 0 8px 0;
+      }
+
+      #btnClearLog {
+        margin-left: 16px;
+      }
+
+      #log {
+        border: 1px solid Gainsboro;
+        height: 100px;
+        margin: 8px 0 8px 0;
+        overflow: auto;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="example">
+      <h3>Example of checkableRows behavior.</h3> 
+      Click on checkboxes to see how it works.
+      <table id="exampleTable" class="checkableRows">
+        <thead>
+          <tr><td>Product Id</td><td>Artist</td><td>Album</td><td>Year</td><td>I like it</td></tr>
+        </thead>
+        <tbody>
+          <tr><td>001</td><td>Beatles</td><td>Please Please Me</td><td>1963</td><td class="checkCell"/></tr>
+          <tr><td>002</td><td>Beatles</td><td>A Hard Day's Night</td><td>1964</td><td class="checkCell"/></tr>
+          <tr><td>003</td><td>Beatles</td><td>Yellow Submarine</td><td>1969</td><td class="checkCell"/></tr>
+          <tr><td>004</td><td>Rolling Stones</td><td>December's Children (And Everybody's)</td><td>1965</td><td class="checkCell"/></tr>
+          <tr><td>005</td><td>Rolling Stones</td><td>Beggars Banquet</td><td>1968</td><td class="checkCell"/></tr>
+          <tr><td>006</td><td>Rolling Stones</td><td>Goats Head Soup</td><td>1973</td><td class="checkCell"/></tr>
+        </tbody>
+      </table>
+      <div id="checkedSet">Checked product Ids: []</div>
+      <div id="controlBar">Log:<input type="button" id="btnClearLog" value="Clear"></input></div>
+      <div id="log"></div>
+      See also:
+      <a class="seeAlso" href="example_checkableRows_selectableRows_focusable.htm">Combining checkableRows, selectableRows and focusable</a>
+    </div>
+  </body>
+  <script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+  <script type="text/javascript" src="table.checkableRows.js"></script>
+  <script type="text/javascript">
+    jQuery(function($) {
+
+      $("#exampleTable").on("rowCheckChanged.checkableRows", function(event, rows, value) {
+        logEvent(event, rows);
+        $("#checkedSet").text("Checked product Ids: " + JSON.stringify(getCheckedProductIds()));
+      });
+
+      function getCheckedProductIds() {
+        var result = [];
+        $("table.checkableRows").find(">tbody > tr.checked").each(function() {
+          result.push($(this).children("td:eq(0)").text());          
+        });
+        return result;
+      }
+      
+      function logEvent(event, rows) {
+        rows.each(function() {        
+          $(document.createElement("span"))
+            .append(event.type + " id: " + $($(this).find("td").get(0)).text() + "<br>")
+            .appendTo("#log").get(0).scrollIntoView(false);
+        });
+      }
+      
+      $("#btnClearLog").on("click", function() {
+        $("#log").empty();
+      });
+    });
+  </script>
+</html>

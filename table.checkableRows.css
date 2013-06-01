@@ -1,0 +1,13 @@
+/* With cursor pointer we indicate that user may click on checkable cells. */
+table.checkableRows > tbody > tr > td.checkCell {
+	cursor: pointer;
+  background-image: url('unchecked.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+table.checkableRows > tbody > tr.checked > td.checkCell
+{
+  background-image: url('checked.png');
+}
+
