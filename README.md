@@ -37,18 +37,37 @@ and including "table.checkableRows.js". There is no jquery-style initialization 
 
 ## Functions
 
-checkAll - checks all rows in the given table.
+checkAll() - checks all rows in the given table.
 
 Example:
 ```javascript
 $("#exampleTable").checkableRows("checkAll");
 ```
 
-checkNone - unchecks all rows in the given table.
+checked(newValue) - gets/sets checks rows in the given table.
+
+Example:
+```javascript
+$("#exampleTable").checkableRows("checked", $("#exampleTable").find("tr:eq(2)"));
+
+var checked = $("#exampleTable").checkableRows("checked");
+
+```
+
+checkNone() - unchecks all rows in the given table.
 
 Example:
 ```javascript
 $("#exampleTable").checkableRows("checkNone");
+```
+
+toggleCheck(rows) - toggles check on the specified rows in the given table.
+
+Example:
+```javascript
+$("#exampleTable").checkableRows("toggleCheck", $("#exampleTable").find("tr:eq(2)"));
+
+```
 
 ### Events
 
