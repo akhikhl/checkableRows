@@ -32,13 +32,23 @@ Cells showing checkboxes should be supplied with "checkCell" class.
 Effect: all td.checkCell elements are rendered with checkbox image.
 Whenever td.checkCell is clicked, it's parent (tr) is gets/loses "checked" class.
 
-## Access to checked rows
+Note that checkableRows initialization requires *only* presence of "checkableRows" class
+and including "table.checkableRows.js". There is no jquery-style initialization for checkableRows.
 
-It is very easy to get all checked rows within the given table:
+## Functions
 
+checkAll - checks all rows in the given table.
+
+Example:
 ```javascript
-var allCheckedRows = $("#exampleTable").find("> tbody > tr.checked");
+$("#exampleTable").checkableRows("checkAll");
 ```
+
+checkNone - unchecks all rows in the given table.
+
+Example:
+```javascript
+$("#exampleTable").checkableRows("checkNone");
 
 ### Events
 
