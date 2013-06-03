@@ -23,7 +23,7 @@ jQuery(function($) {
     checkToAdd = $(checkToAdd);
     checkToRemove = $(checkToRemove);
     if(checkToAdd.length == 0 && checkToRemove.length == 0)
-      return false;    
+      return false;
     var oldChecked = table.find("> tbody > tr.checked");
     var newChecked = oldChecked.not(checkToRemove).add(checkToAdd);
     if(checkToRemove.length != 0) {
@@ -44,7 +44,7 @@ jQuery(function($) {
     var oldChecked = table.find("> tbody > tr.checked");
     return changeCheck(table, newChecked.not(oldChecked), oldChecked.not(newChecked));
   }
-  
+
   function toggleCheck(table, rows) {
     rows = $(rows);
     var checkToAdd = rows.not(".checked");
@@ -77,14 +77,14 @@ jQuery(function($) {
     if(table.length != 0) {
       if(event.altKey || event.ctrlKey || event.shiftKey)
         return; // we don't handle key combinations yet
-      var selectedRows = table.find("> tbody > tr.selected");
+      var selectedRows = table.selectableRows("selection");
       if(event.keyCode == keyCode.SPACE) {
         if(toggleCheck(table, selectedRows))
           return false;
       }
     }
   });
-  
+
   var methods = {
     checkAll: function() {
       setCheck(this, this.find("> tbody > tr"));
@@ -104,10 +104,10 @@ jQuery(function($) {
       return this;
     }
   };
-  
-  $.fn.selectableRows = function(method) {
+
+  $.fn.checkableRows = function(method) {
     if (methods[method])
       return methods[ method ].apply(this, Array.prototype.slice.call(arguments, 1));
-    $.error("Method " +  method + " does not exist on jQuery.selectableRows");
+    $.error("Method " +  method + " does not exist on jQuery.checkableRows");
   };
 });
